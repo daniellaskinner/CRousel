@@ -33,27 +33,28 @@ const markCRDone = (names, name) => {
     return name.order = name.order + numberOfNames;
 }
 
-const addName = (textInput) => {
-    console.log(textInput.current.value)
+// update list of names with new name
+const addNameToList = (newName, names) => {
+    return(names.push({id: 4, name : newName.current.value, order: 4}))
 }
 
 export default function Index() {
     const names = useLoaderData();
     names.sort(sortNames)
 
-    let textInput = React.createRef();
+    let newName = React.createRef();
 
     return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to the CRousel</h1>
 
         <div>
-            <input ref={textInput} placeholder="Insert a name" />
-            <button onClick={() => addName(textInput)} />
+            <input ref={newName} placeholder="Insert a name" />
+            <button onClick={() => addNameToList(newName, names)} />
         </div>
         <ul>
             {names.map((name, index) => {
-                return <li key={index}>{name.name} <button onClick={() => markCRDone(names, name)}>Done</button></li>
+                return <li key={index}>{name.name} <button onClick={() => markCRDone(names, name)}>CR done</button></li>
             })}
         </ul>
     </div>
